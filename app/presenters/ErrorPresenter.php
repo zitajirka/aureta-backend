@@ -2,15 +2,16 @@
 
 namespace App\Presenters;
 
-use Nette;
-use Nette\Application\Responses;
-use Tracy\ILogger;
+use Nette,
+	App\Model,
+	Tracy\ILogger;
 
 
-class ErrorPresenter implements Nette\Application\IPresenter
+/**
+ * Error presenter.
+ */
+class ErrorPresenter extends BasePresenter
 {
-	use Nette\SmartObject;
-
 	/** @var ILogger */
 	private $logger;
 
@@ -22,22 +23,27 @@ class ErrorPresenter implements Nette\Application\IPresenter
 
 
 	/**
-	 * @return Nette\Application\IResponse
+	 * @param  Exception
+	 * @return void
 	 */
-	public function run(Nette\Application\Request $request)
+	public function renderDefault($exception)
 	{
-		$e = $request->getParameter('exception');
+		if ($exception instanceof Nette\Application\BadRequestException) {
+			$code = $exception->getCode();
+			// load template 403.latte or 404.latte or ... 4xx.latte
+			$this->setView(in_array($code, array(403, 404, 405, 410, 500)) ? $code : '4xx');
+			// log to access.log
+			$this->logger->log("HTTP code $code: {$exception->getMessage()} in {$exception->getFile()}:{$exception->getLine()}", 'access');
 
-		if ($e instanceof Nette\Application\BadRequestException) {
-			// $this->logger->log("HTTP code {$e->getCode()}: {$e->getMessage()} in {$e->getFile()}:{$e->getLine()}", 'access');
-			list($module, , $sep) = Nette\Application\Helpers::splitName($request->getPresenterName());
-			$errorPresenter = $module . $sep . 'Error4xx';
-			return new Responses\ForwardResponse($request->setPresenterName($errorPresenter));
+		} else {
+			$this->setView('500'); // load template 500.latte
+			$this->logger->log($exception, ILogger::EXCEPTION); // and log exception
 		}
 
-		$this->logger->log($e, ILogger::EXCEPTION);
-		return new Responses\CallbackResponse(function () {
-			require __DIR__ . '/templates/Error/500.phtml';
-		});
+		if ($this->isAjax()) { // AJAX request? Note this error in payload.
+			$this->payload->error = TRUE;
+			$this->terminate();
+		}
 	}
+
 }

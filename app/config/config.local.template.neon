@@ -1,0 +1,21 @@
+parameters:
+	developmentMode: true # this parameter has to be FALSE on production
+
+nette:
+
+services:
+	nette.mailer:
+		class: Nette\Mail\IMailer
+		factory: Nextras\MailPanel\FileMailer(%tempDir%/mail-panel-mails)
+
+tracy:
+    bar:
+        - Nextras\MailPanel\MailPanel(%tempDir%/mail-panel-latte)
+
+dbal:
+	driver: mysqli
+	host: localhost
+	database: gritbox_devel
+	username: root
+	password: android
+

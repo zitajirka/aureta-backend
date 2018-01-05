@@ -1,28 +1,80 @@
-{**
- * @param string   $basePath web base path
- * @param array    $flashes  flash messages
- *}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 
-	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Sandbox</title>
+	<title>{ifset title}{include title|striptags} | {/ifset}Nette Sandbox</title>
+
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	{control htmlAssets 'css', 'main'}
+
 	{block head}{/block}
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
-	{include content}
+	{block header}{/block}
+
+
+
+	<div class="topfix" data-topfix-offset="20">
+		<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">{$flash->message}</div>
+	</div>
+
+	{include moduleLayout}
+
+
+
+	<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content" n:snippet="modal">
+				{ifset $modal}
+					<div class="modal-header">
+						<h5 class="modal-title">
+							{ifset #modal-$modal-title}{include #"modal-$modal-title"}{/ifset}
+						</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						{ifset #modal-$modal-body}{include #"modal-$modal-body"}{/ifset}
+					</div>
+					{ifset #modal-$modal-footer}
+						<div class="modal-footer">
+							{include #"modal-$modal-footer"}
+						</div>
+					{/ifset}
+				{/ifset}
+			</div>
+		</div>
+	</div>
+
+	{if !$user->isLoggedIn()}
+		{define modal-signin-title}
+			Sign in
+		{/define}
+		{define modal-signin-body}
+			{block signInForm}
+				{control signInForm}
+			{/block}
+		{/define}
+
+	{/if}
+
+	{control htmlAssets 'js', 'manifest'}
+	{control htmlAssets 'js', 'vendor'}
+	{control htmlAssets 'js', 'commons'}
+
 
 	{block scripts}
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script src="https://nette.github.io/resources/js/netteForms.min.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
+
 	{/block}
+
+	{control htmlAssets 'js', 'main'}
 </body>
 </html>

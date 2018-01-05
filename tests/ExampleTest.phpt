@@ -2,9 +2,9 @@
 
 namespace Test;
 
-use Nette;
-use Tester;
-use Tester\Assert;
+use Nette,
+	Tester,
+	Tester\Assert;
 
 $container = require __DIR__ . '/bootstrap.php';
 
@@ -14,21 +14,22 @@ class ExampleTest extends Tester\TestCase
 	private $container;
 
 
-	public function __construct(Nette\DI\Container $container)
+	function __construct(Nette\DI\Container $container)
 	{
 		$this->container = $container;
 	}
 
 
-	public function setUp()
+	function setUp()
 	{
 	}
 
 
-	public function testSomething()
+	function testSomething()
 	{
-		Assert::true(true);
+		Assert::true( true );
 	}
+
 }
 
 

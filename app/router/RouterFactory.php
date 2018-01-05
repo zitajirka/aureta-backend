@@ -2,22 +2,35 @@
 
 namespace App;
 
-use Nette;
-use Nette\Application\Routers\Route;
-use Nette\Application\Routers\RouteList;
+use Nette,
+	Nette\Application\Routers\RouteList,
+	Nette\Application\Routers\Route,
+	Nette\Application\Routers\SimpleRouter;
 
 
+/**
+ * Router factory.
+ */
 class RouterFactory
 {
-	use Nette\StaticClass;
 
 	/**
-	 * @return Nette\Application\IRouter
+	 * @return \Nette\Application\IRouter
 	 */
 	public static function createRouter()
 	{
-		$router = new RouteList;
-		$router[] = new Route('<presenter>/<action>', 'Homepage:default');
+		$router = new RouteList();
+		$router[] = new Route('admin/<presenter>/<action>[/<id>]', [
+			'module' => 'Admin',
+			'presenter' => 'Homepage',
+			'action' => 'default',
+		]);
+		$router[] = new Route('<presenter>/<action>[/<id>]', [
+			'module' => 'Front',
+			'presenter' => 'Homepage',
+			'action' => 'default',
+		]);
 		return $router;
 	}
+
 }
