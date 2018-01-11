@@ -1,6 +1,7 @@
 log/*
 temp/*
 vendor/*
+www/assetts
 !.gitignore
 !.htaccess
 !web.config

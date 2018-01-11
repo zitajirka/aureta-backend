@@ -1,21 +1,8 @@
 #
 # WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
-# http://nette.org/security-warning
+# https://nette.org/security-warning
 #
 parameters:
-
-	assetVersion: 1 # increment after CSS or JS changes
-	development: false
-
-	appUniqueHash: "jHrC5j8V3HDTDx86+#&H109" # Change this hash for your app, 22 chars at least!
-
-	emails:
-		templatesDir: %appDir%/templates/emails
-		fromAddress: 'weListen@myApp.com' 	# for outgoing e-mails from you app.
-		archiveAddress: ''					# if you want to send copy of every sent e-mail to an mailbox for archivation
-
-php:
-	date.timezone: Europe/Prague
 
 
 application:
@@ -28,49 +15,17 @@ session:
 	expiration: 14 days
 
 
+database:
+	dsn: 'mysql:host=127.0.0.1;dbname=aureta-backend'
+	user: root
+	password: root
+	options:
+		lazy: yes
+
 
 services:
-
-
-	- App\Components\HtmlAssets(%developmentMode%)
-
-	- App\Model\Services\AuthenticatorService
-	- App\Model\Services\EmailService(%emails.templatesDir%, %emails.archiveAddress%, %emails.fromAddress%)
-
-	- App\Forms\ISignUpFormFactory
-	- App\Forms\ISignInFormFactory
-	- App\Forms\ISendPasswordFormFactory
-
-
-
+	- App\Model\UserManager
+	- App\Forms\FormFactory
+	- App\Forms\SignInFormFactory
+	- App\Forms\SignUpFormFactory
 	router: App\RouterFactory::createRouter
-
-	authorizator:
-		class: Nette\Security\Permission
-		setup:
-			- addRole('guest')
-			- addRole('user')
-			- addRole('admin')
-			- addResource('Admin')
-			- addResource('Admin:Homepage', 'Admin')
-			- addResource('Front')
-			- addResource('Front:Sign', 'Front')
-			- addResource('Front:Homepage', 'Front')
-			- allow('guest', 'Front')
-			- allow('user')
-			- allow('admin')
-
-
-extensions:
-	dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
-	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
-
-orm:
-	model: App\Model
-
-dbal:
-	driver: mysqli
-	host: localhost
-	database: grtibox
-	username: root
-	password: android
