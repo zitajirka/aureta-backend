@@ -18,8 +18,10 @@
 
 
 {* for Bootstrap v3 *}
-{define bootstrap-form $form}
-	<form n:name=$form class=form-horizontal>
+{define bootstrap-form $form, $title}
+	
+	<form n:name=$form class=form-form-inline>
+	<h1>{$title}</h1>
 	<ul class=error n:if="$form->ownErrors">
 		<li n:foreach="$form->ownErrors as $error">{$error}</li>
 	</ul>
@@ -28,13 +30,13 @@
 		n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
 		n:class="form-group, $input->required ? required, $input->error ? has-error">
 
-		<div class="col-sm-2 control-label">{label $input}</div>
+		<!-- <div class="col-sm-2 control-label">{label $input}</div> -->
 
-		<div class="col-sm-10">
+
 			{if $input->getOption(type) in [text, select, textarea]}
 				{input $input class => form-control}
 			{elseif $input->getOption(type) === button}
-				{input $input class => "btn btn-default"}
+				{input $input class => "btn btn-default submit"}
 			{elseif $input->getOption(type) === checkbox}
 				<div class="checkbox">{input $input}</div>
 			{elseif $input->getOption(type) === radio}
@@ -44,7 +46,62 @@
 			{/if}
 
 			<span class=help-block n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
-		</div>
+		
+
+
 	</div>
 	</form>
 {/define}
+
+{* for Bootstrap v3 *}
+{define bootstrap3-form $form}
+	
+	<form n:name=$form class="form-horizontal form-label-left">
+	<ul class=error n:if="$form->ownErrors">
+		<li n:foreach="$form->ownErrors as $error">{$error}</li>
+	</ul>
+
+	
+    <fieldset class="group" n:foreach="$form->getGroups() as $group">
+    
+    <legend>{$group->getOption('label')}</legend>
+
+	<div n:foreach="$group->getControls() as $name => $input"
+		n:if="!$input->getOption(rendered) && $input->getOption(type) !== hidden"
+		n:class="form-group, $input->required ? required, $input->error ? has-error">
+
+		<label class="control-label col-sm-3 col-xs-12">{$input->label}</label>
+		<div class="col-sm-6 col-xs-12">
+
+			{if $input->getOption(type) in [text, select, textarea]}
+				{input $input class => "form-control " . $input->getOption(class)}
+			{elseif $input->getOption(type) === button}
+				
+			{elseif $input->getOption(type) === checkbox}
+				<div class="checkbox">{input $input}</div>
+			{elseif $input->getOption(type) === radio}
+				<div class="radio">{input $input}</div>
+			{else}
+				{input $input}
+			{/if}
+
+			<span class=help-block n:ifcontent>{$input->error ?: $input->getOption(description)}</span>
+		
+		</div>
+
+	</div>
+
+	</fieldset>
+	<div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="button" href="Products:">Zrušit</button>
+              			  <button class="btn btn-primary" type="reset">Vynulovat</button>
+                          <button name='send' type="submit" class="btn btn-success">{$form['send']->caption}</button>
+                        </div>
+      </div>
+
+
+	</form>
+{/define}
+

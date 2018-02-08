@@ -68,8 +68,22 @@ gulp.src('node_modules/gentelella/vendors/font-awesome/fonts/*')
 var pluginsFilesJS = [
             'node_modules/gentelella/vendors/fastclick/lib/fastclick.js',
             'node_modules/gentelella/vendors/nprogress/nprogress.js',
-            'node_modules/gentelella//vendors/bootstrap-progressbar/bootstrap-progressbar.min.js',
-            'node_modules/gentelella//vendors/iCheck/icheck.min.js'
+            'node_modules/gentelella/vendors/bootstrap-progressbar/bootstrap-progressbar.min.js',
+            'node_modules/gentelella/vendors/iCheck/icheck.min.js',
+
+            'node_modules/gentelella/vendors/datatables.net/js/jquery.dataTables.min.js',
+            'node_modules/gentelella/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js',
+            'node_modules/gentelella/vendors/datatables.net-buttons/js/dataTables.buttons.min.js',
+            'node_modules/gentelella/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js',
+            'node_modules/gentelella/vendors/datatables.net-buttons/js/buttons.flash.min.js',
+            'node_modules/gentelella/vendors/datatables.net-buttons/js/buttons.html5.min.js',
+            'node_modules/gentelella/vendors/datatables.net-buttons/js/buttons.print.min.js',
+            'node_modules/gentelella/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+            'node_modules/gentelella/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js',
+            'node_modules/gentelella/vendors/datatables.net-responsive/js/dataTables.responsive.min.js',
+            'node_modules/gentelella/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js',
+            'node_modules/gentelella/vendors/datatables.net-scroller/js/dataTables.scroller.min.js'
+            
             ];
 
 
@@ -81,7 +95,13 @@ gulp.src(pluginsFilesJS)
 var pluginsFilesCSS = [
             'node_modules/gentelella/vendors/nprogress/nprogress.css',
             'node_modules/gentelella/vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css',
-            'node_modules/gentelella/vendors/iCheck/skins/flat/green.css'
+            'node_modules/gentelella/vendors/iCheck/skins/flat/green.css',
+
+            'node_modules/gentelella/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css',
+            'node_modules/gentelella/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css',
+            'node_modules/gentelella/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css',
+            'node_modules/gentelella/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css',
+            'node_modules/gentelella/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css'
             ];
 
 

@@ -1,11 +1,27 @@
+{layout 'layout.latte'}
+
 {block content}
-<h1 n:block=title>Sign In</h1>
+<div>
+      <a class="hiddenanchor" id="signup"></a>
+      <a class="hiddenanchor" id="signin"></a>
 
-{control signInForm}
+      <div class="login_wrapper">
+        <div class="animate form login_form">
+          <section class="login_content">
 
-{* OR
+
+{* control signInForm *}
+
+
 {import '../components/form.latte'}
-{include form signInForm}
-*}
+{include bootstrap-form signInForm, 'Přihlášení'}
 
-<p><a n:href="up">Don't have an account yet? Sign up.</a></p>
+
+
+ </section>
+        </div>
+
+        
+      </div>
+    </div>
+

@@ -22,15 +22,19 @@ class SignPresenter extends BasePresenter
 	}
 
 
+
 	/**
 	 * Sign-in form factory.
 	 * @return Form
 	 */
 	protected function createComponentSignInForm()
 	{
-		return $this->signInFactory->create(function () {
+		
+		$form = $this->signInFactory->create(function () {
 			$this->redirect('Homepage:');
 		});
+		
+		return $form; 
 	}
 
 
@@ -48,6 +52,6 @@ class SignPresenter extends BasePresenter
 
 	public function actionOut()
 	{
-		$this->getUser()->logout();
+		$this->getUser()->logout(true);
 	}
 }

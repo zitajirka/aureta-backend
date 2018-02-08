@@ -1,0 +1,93 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+        
+      
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Produkty <small>editace produktů</small></h3>
+              </div>
+
+              
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Tabulka produktů <small>Users</small></h2>
+            
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <p class="text-muted font-13 m-b-30">
+                      Editujte produkty
+                    </p>
+                    <table id="datatable" class="table table-striped table-bordered">
+                      <thead>
+                       
+                        <tr>
+                          <th>IDProduktu</th>
+                          <th>KatalogoveCislo</th>
+                          <th>NazevProduktuCZE</th>
+                          <th>NazevProduktuENG</th>
+                          <th>NazevProduktuITA</th>
+                          <th>VyskaProduktu</th>
+                          <th>JineInfoCZE</th>
+                          <th>JineInfoENG</th>
+                          <th>JineInfoITA</th>
+                          <th>TopProdukt</th>
+                          <th>Barvy</th>
+                          <th>VelkyObrazek</th>
+                          <th>MalyObrazek</th>
+
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                        {foreach $products as $product}
+
+                        <tr>
+                           <td>{$product->IDProduktu}</td>
+                          <td>{$product->KatalogoveCislo}</td>
+                          <td>{$product->NazevProduktuCZE}</td>
+                          <td>{$product->NazevProduktuENG}</td>
+                          <td>{$product->NazevProduktuITA}</td>
+                          <td>{$product->VyskaProduktu}</td>
+                          <td>{$product->JineInfoCZE}</td>
+                          <td>{$product->JineInfoENG}</td>
+                          <td>{$product->JineInfoITA}</td>
+                          <td>{$product->TopProdukt}</td>
+                          <td>{$product->Barvy}</td>
+                          <td>{$product->VelkyObrazek}</td>
+                          <td>{$product->MalyObrazek}</td>
+                        </tr>
+                         {/foreach}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+
+             
+
+             
+
+
+             
+
+          
+            </div>
+          </div>
+        </div>
+        <!-- /page content -->
+
+        
+
+{/block}
